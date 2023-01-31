@@ -14,7 +14,8 @@ The approach used here is informal and uses the following background and guideli
 * The junior member of the team is a rising systems network administrator with a background in firewalls and desktop administration.
 * The junior member of the team has programmed in multiple scripting languages, but is new to a more full featured language like Python.
 * The problem space defined by the Cryptopals challenges determines the boundary of exploration into the Python language for this project. Only those Python features needed to solve the challenges are explored. 
-* This is a self learning environment where existing knowledge is used to learn new concepts using the modern aids available from available websites. Common problems are researched for the specific language construct and adapted to original code in this repo.  
+* This is a self learning environment where existing knowledge is used to learn new concepts using the modern aids available from available websites. Common problems are researched for the specific language construct and adapted to original code in this repo.
+* Expect to see commented out print statements previously used to examine statistical calculations.
 
 ## Repository Structure 
 
@@ -25,6 +26,13 @@ The approach used here is informal and uses the following background and guideli
 ## Repository Use 
 
 * Currently the repository is read-only to the public. 
+
+## Problem Domain
+While it is fair to say that programming languages in general have an abstract structure there is nothing like applying that abstract structure to a particular problem domain and seeing what you come up with. Afterall, the language is a tool to solve a problem. The field of cryptography is arguably an abstract discipline. Rooted in mathematics, we find many of the cryptographic procedures we follow, provided by the experts, to require only a set of steps to carefully follow. Get them right and all will be fine.
+
+Writing code to solve a problem, unfortunately, requires that there be some understanding of the problem. After reaching Set1: Challenge 6 the team decided to share work with the public with a bit of a warning. The problem domain involves gaining intellectual control over binary arithmetic, rudimentary statistical analysis, the gory details of understanding low level data types in a high level language, and how to convert between various encoding schemes. Really good stuff and cudos for the Cryptopals guys for their great work!
+
+
 
 ## License 
 
