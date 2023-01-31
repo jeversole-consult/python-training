@@ -11,15 +11,19 @@ The approach used here is informal and uses the following background and guideli
 * The senior member of the team has a background in hardware architectures and machine language programming.
 * The junior member of the team is a rising systems network administrator with a background in firewalls and desktop administration.
 * The junior member of the team has programmed in multiple scripting languages, but is new to a more full featured language like Python.
-* The problem space defined by the Cryptopals challenges determines the extend of exploration into the Python language for this project. Only those Python features needed to solve the challenges are explored. 
-* The problem domain is limited to the Cryptopals challenges for this project.
+* The problem space defined by the Cryptopals challenges determines the boundary of exploration into the Python language for this project. Only those Python features needed to solve the challenges are explored. 
+* This is a self learning environment where existing knowledge is used to learn new concepts using the modern aids available from available websites. Common problems are researched for the specific language construct and adapted to original code in this repo.  
 
 ## Repository Structure 
 
-* Be accurate, non-judgmental, and understandable. Our goal is to help you find a license that meets *your* goals.
-* The homepage should have just enough to help most folks make a decision about what license to use for a project they contribute to.
-* For the rest, the site will contain additional information about licenses common to specific communities and situations.
-* Collaborate with and reinforce other licensing best practices and standards projects.
-* Not comprehensive. Seems like an odd goal, but there are a bajillion licenses out there. We're going to have to filter that down to a small list of those that matter.
+* The structure of this repo is based on the problem sets with python scripts named after the specific challenges.
+* After working through the challenges a file of reusable functions was developed to illustrate a simple example of how to write and use functions in python. 
+* Examples of how to document source code are embedded in the code files. The minimal standard is to at least provide the original author of the code memory of why a piece of code was written the way it was. This is particularly helpful when using language specific idioms. This particular problem domain lends itself to idioms that are most concise and useful, but cryptic as the data strings they analyze so comments do help even if you wrote the code.
+
+## Repository Use 
+
+* Currently the repository is read-only to the public. 
+
+## License 
 
 
