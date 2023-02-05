@@ -8,7 +8,7 @@
 
  -- Notes:
  This is a rough cut at building a very small function library to reuse by scripts. There is a 
- bit of an attempt to use a standard for documenting the functions. It's better than nothing
+ bit of an attempt to use a standard for documenting the functions. It's better than nothing.
  --------------------------------------------------------------------------------------------------
 """
 from collections import Counter
@@ -191,26 +191,24 @@ def sbx_decipher(text: bytes) :
     
     Notes:
     ------
-"""
-    '''
     This function deciphers an encrypted text using Single Byte XOR and returns
     the original plain text message and the encryption key.
-    '''
+    """
     original_text, encryption_key, min_fq = None, None, None
     
     for k in range(256):
         # we generate the plain text using encryption key `k`
-        _text = single_byte_xor(text, k) 
+        plain_text = single_byte_xor(text, k) 
         
         # we compute the fitting quotient for this decrypted plain text
-        _fq = compute_fitting_quotient(_text)
+        fq = compute_fitting_quotient(plain_text)
         
         # if the fitting quotient of this generated plain text is lesser
         # than the minimum seen till now `min_fq` we update.
-        if min_fq is None or _fq < min_fq:
-            encryption_key, original_text, min_fq = k, _text, _fq
+        if min_fq is None or fq < min_fq:
+            encryption_key, original_text, min_fq = k, plain_text, fq
 
-    # return the decrypted text and key that has the minimum fitting quotient
+    # return the decrypted text, key and min fq for the string with the minimum fitting quotient
     return original_text, encryption_key, min_fq
 
 # -- End sbx_decipher --
