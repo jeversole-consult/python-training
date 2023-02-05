@@ -54,7 +54,24 @@ The following links were visited while working on the code. It is a mixed bag of
 * https://www.dataquest.io/blog/documenting-in-python-with-docstrings/
 * https://www.codementor.io/@arpitbhayani/deciphering-single-byte-xor-ciphertext-17mtwlzh30
 * https://stackoverflow.com/questions/14267452/iterate-over-individual-bytes-in-python-3
+* https://en.wikipedia.org/wiki/Fitting_length
+* https://en.wikipedia.org/wiki/Nilpotent
+* https://pythonexamples.org/python-split-string-into-specific-length-chunks/
+* https://docs.python.org/3/glossary.html#term-bytes-like-object
+* https://docs.python.org/3/library/base64.html
+* https://www.geeksforgeeks.org/encoding-and-decoding-base64-strings-in-python/
+* https://stackabuse.com/encoding-and-decoding-base64-strings-in-python/
+* https://en.wikipedia.org/wiki/Base64
+* https://www.geeksforgeeks.org/python-split-string-in-groups-of-n-consecutive-characters/
+* https://www.geeksforgeeks.org/python-debugger-python-pdb/
+* https://docs.python.org/3/library/pdb.html
+* https://www.activestate.com/blog/python-debugger-showdown/
+* https://learnbyexample.github.io/python-regex-cheatsheet/
+* https://stackoverflow.com/questions/5658369/how-to-input-a-regex-in-string-replace
+* https://stackoverflow.com/questions/2637592/perl-like-regex-in-python
+* https://www.datacamp.com/tutorial/python-data-type-conversion
+* https://www.geeksforgeeks.org/count-set-bits-using-python-list-comprehension/
+* https://stackoverflow.com/questions/1523465/binary-numbers-in-python
 * 
-
 
 ## License 
