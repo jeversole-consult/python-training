@@ -22,13 +22,15 @@
 
  -- Notes:
 
- To tackle this problem we need to iterate of a python byte string and keep track of where we are
+ To tackle this problem we need to iterate over a python byte string and keep track of where we are
  so that we can use the chars of the repeating key in order. A little tricky, but not too bad. We
  can reuse code already written to accomplish the task.
 --------------------------------------------------------------------------------------------------
 """
 # Import needed functions
 import crypto_funcs
+
+print('\n --- Challege 5 ---\n')
 
 # Initialize strings with test data
 #

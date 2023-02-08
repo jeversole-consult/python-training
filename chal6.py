@@ -60,39 +60,36 @@
 
 import pdb
 import base64
-import re
 import crypto_funcs
+
+print('\n --- Challege 6 ---\n')
+
 #
-# Read in the file into one big variable
-#
-# The file is base64 encoded at the byte level. We can translate base64 to byte stings. We know 
-# that the bytes are encrypted with a multi-byte xor cipher. What we don't know is the length of
-# key, i.e. number of bytes in the key. Our first task to get a best guess on the rotating byte xor
-# key length. The way to do that is systematically slice and dice the strings, compute the 
-# normalized HD for all key lengths and look for the minimum. We will run this computation 
-# according recommendations from the challenge for key lengths 2-40
+# Read the file into one big variable. The file is base64 encoded at the byte level. We can 
+# translate base64 to byte stings. We know that the bytes are encrypted with a multi-byte xor 
+# cipher. What we don't know is the length of key, i.e. number of bytes in the key. Our first 
+# task is to get a best guess on the rotating byte xor key length. The way to do that is 
+# systematically slice and dice the strings, compute the normalized HD for all key lengths and
+# look for the minimum. We will run this computation according recommendations from the 
+# Challenge 6 page for key lengths 2 through 40.
 #
 
 b64_file = open("chal6_input.txt", "r")
 data = b64_file.read()
-#
-# There is an interesting question for newlines to remove them or leave them in the file
-re.sub(r'\n', r'', data) # regex to get rid of the newlines in data string
 
 base64_bytes = data.encode('ascii')
 message_bytes = base64.b64decode(base64_bytes)
 #
-# The question here is message_bytes in the format we need to operate. The answer ends up being
-# yes.
-message = message_bytes.decode('ascii')
-
+# The question here is message_bytes in the right format. The answer ends up being yes.
 #
 # Step 1 - Find best key size
-# Now that we have data from the challenge file in one long byte string/array we can operate
+#
+# Now that we have data from the challenge 6 file in one long byte string/array we can operate
 # on the file using an algorithm to systematically compute Hamming distance averages for each
 # key size. 
-min_AHD = None
-keylen = None
+#
+min_AHD, keylen = None, None
+
 for n in range(2,40):
     bytelists = [(message_bytes[i:i+n]) for i in range(0, len(message_bytes)-1, n)]
     lcnt = 0
@@ -109,8 +106,7 @@ for n in range(2,40):
 #
 # Getting these numbers right is very tedious, but required to solve the problem
 # 
-q, ekey, min_fq = None,None,None
-mbkey = b''
+q, ekey, min_fq, mbkey = None,None,None,b''
 
 # Build out the multibyte XOR key by deciphering the set of substrings that have a common
 # single byte encryption. Knowing the key length enables us to do this.
@@ -135,4 +131,7 @@ for block in blocks:
     # Decrypt by using the multi-byte XOR and reassemble the plain text
     plain_text += crypto_funcs.multi_byte_xor(block, mbkey).decode('ascii')
 
+# Print the plain text we just assembled with the above loop
+#
+print("The decrypted text is printed below\n-----------------------------------\n")
 print(plain_text)
