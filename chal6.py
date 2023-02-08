@@ -106,6 +106,11 @@ for n in range(2,40):
 #
 # Getting these numbers right is very tedious, but required to solve the problem
 # 
+# Step 2 - Use single byte substrings to find the key
+#
+# Build out the multibyte XOR key by deciphering the set of substrings that have a common
+# single byte encryption. Knowing the key length enables us to do this.
+#
 q, ekey, min_fq, mbkey = None,None,None,b''
 
 # Build out the multibyte XOR key by deciphering the set of substrings that have a common
@@ -120,6 +125,9 @@ for m in range(0, keylen):
     # Append returned key to the multi-byte key string.
     mbkey += ekey.to_bytes(1,'little')
 
+# 
+# Step 3 - Use the found key to decrypt the message
+#
 # Use the multibyte key assembled above to XOR with key length blocks from the encrypted string  
 # and see what we get. Need to do it block at a time based on key length. Remember how XOR works 
 # to return the plain text from encrypted text with a simple XOR of the original key.
