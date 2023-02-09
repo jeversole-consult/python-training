@@ -72,6 +72,12 @@ The following links were visited while working on the code. It is a mixed bag of
 * https://www.datacamp.com/tutorial/python-data-type-conversion
 * https://www.geeksforgeeks.org/count-set-bits-using-python-list-comprehension/
 * https://stackoverflow.com/questions/1523465/binary-numbers-in-python
-* 
+* https://onboardbase.com/blog/aes-encryption-decryption/
+* https://stackoverflow.com/questions/30602843/how-to-import-openssl-in-python
+* https://github.com/pyca/cryptography
+* https://braincoke.fr/write-up/cryptopals/cryptopals-detect-aes-in-ecb-mode/
+* https://stackoverflow.com/questions/13673060/split-string-into-strings-by-length
+* https://onboardbase.com/blog/aes-encryption-decryption/
+* https://stackoverflow.com/questions/67265485/python-aes-ecb-mode-with-crypto
 
 ## License 
