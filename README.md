@@ -79,5 +79,8 @@ The following links were visited while working on the code. It is a mixed bag of
 * https://stackoverflow.com/questions/13673060/split-string-into-strings-by-length
 * https://onboardbase.com/blog/aes-encryption-decryption/
 * https://stackoverflow.com/questions/67265485/python-aes-ecb-mode-with-crypto
+* https://techtutorialsx.com/2018/04/09/python-pycrypto-using-aes-128-in-ecb-mode/
+* https://pycryptodome.readthedocs.io/en/latest/src/examples.html
+* https://stackoverflow.com/questions/70557969/decrypt-aes-ecb-using-python
 
 ## License 
