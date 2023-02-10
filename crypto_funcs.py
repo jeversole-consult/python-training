@@ -12,6 +12,7 @@
  --------------------------------------------------------------------------------------------------
 """
 from collections import Counter
+from collections import defaultdict
 
 """
 English lowercase frequency table
@@ -30,6 +31,35 @@ occurance_english = {
 Load the values of the english character occurance into a list
 """
 dist_english = list(occurance_english.values())
+
+def dupe_blocks(text, block_length):
+    """
+    Split the input text into blocks of block_length and look for the number of duplicate blocks
+    in the text.
+
+    Parameters
+    ----------
+    text : bytes
+       text data to be split into blocks and analyzed
+    block_length : int
+       length of the blocks to be analyzed
+
+    Returns
+    ----------
+    int: The number of duplicate blocks found in the text input
+    """
+    #
+    # To understand the statement below need to read up on python dictionaries. It basically says
+    # when a new key is created in the dictionary its value will be initialized to -1 which handles
+    # a certain counting problem for this challenge most eligantly.
+    #
+    dupe_cnt = defaultdict(lambda: -1)
+    for i in range(0, len(text), block_length):
+        block = bytes(text[i:i + block_length])
+        dupe_cnt[block] += 1
+    return sum(dupe_cnt.values())
+
+# -- End dupe_blocks --
 
 def hamming_dist(s1:bytes, s2:bytes) -> int:
     """
