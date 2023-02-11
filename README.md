@@ -91,4 +91,7 @@ The following links were visited while working on the code. It is a mixed bag of
 * https://pycryptodome.readthedocs.io/en/latest/src/examples.html
 * https://stackoverflow.com/questions/70557969/decrypt-aes-ecb-using-python
 
+## Contact Info
+Please send any comments or questions to: eversolejesse@gmail.com 
+
 ## License 
