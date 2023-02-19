@@ -40,6 +40,13 @@ While it is fair to say that programming languages in general have an abstract s
 
 Writing code to solve a problem, invariably, requires that there be some understanding of what is under the hood. After completing Set1: Challenge 6, the team decided to begin sharing work with the public. The challenges were found to be carefully constructed, i.e crawl before you walk and so on, to build a foundation. The team used that introduction to build out an include file of common routines to reuse. There are a number of features of Python that we explore without getting into the depth of object oriented design and programming. As we did a deeper dive into the problem domain we found that it touches on binary arithmetic, rudimentary statistical analysis, the gory details of understanding low level data types in a high level language, and how to convert between various encoding schemes. Really good stuff and cudos for the Cryptopals guys for their great work!
 
+## Toolset
+* Editor(s): Visual Studio code as primary. Occasional use of VI and the web console for the repo.
+* Python: Python 3.7 and greater depending on the machine and the rig. Also make use of the debugger.
+* Cygwin: Most everything needed can be loaded onto Cygwin on Windows. It is used to simulate a linux command line environment and works pretty good when you are using a Windows platform. Mac folks have an easier time with a command line terminal.
+* Linux VMs: Currently using AWS. Like to keep around a pure linux rig.
+* Github: The public repository where this readme file resides
+
 ## Links
 The following links were visited while working on the code. It is a mixed bag of python coding idioms and crypto math. There is a whole lot of "bit twiddlin'" goin on.
 
@@ -90,6 +97,11 @@ The following links were visited while working on the code. It is a mixed bag of
 * https://techtutorialsx.com/2018/04/09/python-pycrypto-using-aes-128-in-ecb-mode/
 * https://pycryptodome.readthedocs.io/en/latest/src/examples.html
 * https://stackoverflow.com/questions/70557969/decrypt-aes-ecb-using-python
+* https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
+* https://en.wikipedia.org/wiki/Base64
+* https://www.redhat.com/sysadmin/base64-encoding#:~:text=Fundamentally%2C%20Base64%20is%20used%20to,grouped%20into%2024%2Dbit%20sequences.
+* https://stackoverflow.com/questions/3225640/how-to-decrypt-aes-cbc-with-known-iv
+* https://www.sciencedirect.com/topics/computer-science/cipher-block-chaining
 
 ## Contact Info
 Please send any comments or questions to: eversolejesse@gmail.com 
