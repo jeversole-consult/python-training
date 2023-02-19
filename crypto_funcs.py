@@ -32,6 +32,28 @@ Load the values of the english character occurance into a list
 """
 dist_english = list(occurance_english.values())
 
+def cbc(IV, key, text):
+    """
+    Split the input text into blocks of block_length and compute the Cipher Block Chain result for 
+    the text and return
+
+    Parameters
+    ----------
+    IV : bytes
+       Initialization Vector for the algorithm
+    key : bytes
+       Byte string for the key
+    text : bytes
+       Byte string of text to perform operation   
+
+    Returns
+    ----------
+    bytes: The result text from performing the cbc algorithm
+    """
+
+# -- End cbc --
+
+
 def dupe_blocks(text, block_length):
     """
     Split the input text into blocks of block_length and look for the number of duplicate blocks
@@ -61,7 +83,7 @@ def dupe_blocks(text, block_length):
 
 # -- End dupe_blocks --
 
-def hamming_dist(s1:bytes, s2:bytes) -> int:
+def hamming_dist(s1:bytes, s2:bytes, bitlen:int) -> int:
     """
     Compute and return the average Hamming distance for two byte strings
 
@@ -71,6 +93,8 @@ def hamming_dist(s1:bytes, s2:bytes) -> int:
        string 1 for comparison
     s2 : bytes
        string 2 for comparison
+    bl : int
+       bit length to use for comparison
     """
     #
     # Note: This routine expects both input byte strings to be equal in length, hence,
@@ -98,7 +122,7 @@ def hamming_dist(s1:bytes, s2:bytes) -> int:
         bitdist += bin(s1[z] ^ s2[z]).count('1')
         z += 1 
 
-    return(bitdist/(z*8))
+    return(bitdist/(z*bitlen))
 
 # -- End hamming_dist --
 
@@ -129,7 +153,7 @@ def single_byte_xor(text: bytes, key: int) -> bytes:
 
 def multi_byte_xor(text: bytes, key: bytes) -> bytes:
     """
-    Compute and return the single byte XOR of a bytes string with single byte key
+    Compute and return the multi-byte XOR of a bytes string with a multiple byte key
 
     Parameters
     ----------
@@ -144,16 +168,15 @@ def multi_byte_xor(text: bytes, key: bytes) -> bytes:
     
     Notes:
     ------
-    Given a plain text `text` as bytes and an encryption key `key` as a byte integer
-    Given a plain text `text` as bytes and a mulibyte encryption key `key`. The function 
-    encrypts the text by performing XOR of all the bytes rotating the byte `key` sequentially 
-    depending on the length of the key.
+    Given a plain `text` string formatted as bytes and a mulibyte encryption key `key`. The 
+    function encrypts the text by performing XOR of all the bytes rotating through each byte of 
+    the `key` sequentially.
+
+    
     """
     bytenum=len(key)
-    rotate=0
-    b=b''
-    z=None
-
+    rotate,b,z = 0,b'',None
+    
     for a in text:
         z = a ^ key[rotate]
         b = b + z.to_bytes(1,'little')

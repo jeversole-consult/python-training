@@ -23,27 +23,34 @@
 
  is 37. Make sure your code agrees before you proceed.
 
- For each KEYSIZE, take the first KEYSIZE worth of bytes, and the second KEYSIZE worth of bytes, and find the edit distance between them. Normalize this result by dividing by KEYSIZE.
+ For each KEYSIZE, take the first KEYSIZE worth of bytes, and the second KEYSIZE worth of bytes, 
+ and find the edit distance between them. Normalize this result by dividing by KEYSIZE.
 
  The KEYSIZE with the smallest normalized edit distance is probably the key. You could proceed 
  perhaps with the smallest 2-3 KEYSIZE values. Or take 4 KEYSIZE blocks instead of 2 and average 
  the distances. Now that you probably know the KEYSIZE: break the ciphertext into blocks of 
  KEYSIZE length.
 
- Now transpose the blocks: make a block that is the first byte of every block, and a block that is the second byte of every block, and so on.
- Solve each block as if it was single-character XOR. You already have code to do this.
- For each block, the single-byte XOR key that produces the best looking histogram is the repeating-key XOR key byte for that block. Put them together and you have the key.
- This code is going to turn out to be surprisingly useful later on. Breaking repeating-key XOR ("Vigenere") statistically is obviously an academic exercise, a "Crypto 101" thing. But more people "know how" to break it than can actually break it, and a similar technique breaks something much more important.
+ Now transpose the blocks: make a block that is the first byte of every block, and a block that is 
+ the second byte of every block, and so on. Solve each block as if it was single-character XOR. 
+ You already have code to do this. For each block, the single-byte XOR key that produces the best 
+ looking histogram is the repeating-key XOR key byte for that block. Put them together and you have 
+ the key. This code is going to turn out to be surprisingly useful later on. Breaking repeating-key
+ XOR ("Vigenere") statistically is obviously an academic exercise, a "Crypto 101" thing. But more 
+ people "know how" to break it than can actually break it, and a similar technique breaks something 
+ much more important.
  
  No, that's not a mistake.
- We get more tech support questions for this challenge than any of the other ones. We promise, there aren't any blatant errors in this text. In particular: the "wokka wokka!!!" edit distance really is 37.
+ We get more tech support questions for this challenge than any of the other ones. We promise, 
+ there aren't any blatant errors in this text. In particular: the "wokka wokka!!!" edit distance
+ really is 37.
 
  -- Notes:
 
  Thoughts on tackling this problem lead in the direction of first recognizing that a multibyte XOR
  encrypted string is actually composed of multiple substrings that are single byte XOR encrypted.
  That's why if you can figure out the length of the key you break down the larger string into its
- single byte XOR strings and crack those like we did in Challenge 3. A lot of python mechnics to
+ single byte XOR strings and crack those like we did in Challenge 3. A lot of python mechanics to
  pull substrings and iterate across them, but the concept as mentioned in the problem statement
  is straight forward.
  
@@ -98,7 +105,7 @@ for n in range(2,40):
     # string.
     for j in range(0, len(bytelists)):
         if (j < len(bytelists)-1):
-           k = k + crypto_funcs.hamming_dist(bytelists[j],bytelists[j+1])
+           k = k + crypto_funcs.hamming_dist(bytelists[j],bytelists[j+1],8)
     k = k/(len(bytelists)-1)
     if ((min_AHD is None) or (k < min_AHD)):
         min_AHD = k
