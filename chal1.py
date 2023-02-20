@@ -8,6 +8,8 @@
 
  SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t
 
+Reference: https://cryptopals.com/sets/1/challenges/1
+
  -- Notes:
 
  - The Set 1 Challanges begin with a encoding and decoding exercise. 

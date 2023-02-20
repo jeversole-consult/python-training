@@ -45,6 +45,8 @@
  there aren't any blatant errors in this text. In particular: the "wokka wokka!!!" edit distance
  really is 37.
 
+Reference: https://cryptopals.com/sets/1/challenges/6
+
  -- Notes:
 
  Thoughts on tackling this problem lead in the direction of first recognizing that a multibyte XOR

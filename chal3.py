@@ -13,7 +13,7 @@
  How? Devise some method for "scoring" a piece of English plaintext. 
  Character frequency is a good metric. Evaluate each output and choose the one with the best score.
 
- See: https://cryptopals.com/sets/1/challenges/3
+Reference: https://cryptopals.com/sets/1/challenges/3
 
  -- Notes:
 

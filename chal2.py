@@ -14,7 +14,7 @@
  
  746865206b696420646f6e277420706c6179
 
- See: https://cryptopals.com/sets/1/challenges/2
+Reference: https://cryptopals.com/sets/1/challenges/2
 
  -- Notes:
  
