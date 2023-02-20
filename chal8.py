@@ -6,6 +6,8 @@ In the file chal8_input.txt are a bunch of hex-encoded ciphertexts.
 
 One of them has been encrypted with ECB.
 
+Reference: https://cryptopals.com/sets/1/challenges/8
+
 Detect it.
 
  -- Notes:

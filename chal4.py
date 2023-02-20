@@ -6,6 +6,8 @@
  One of the 60-character strings in the file https://cryptopals.com/static/challenge-data/4.txt
  has been encrypted by single-character XOR.
 
+Reference: https://cryptopals.com/sets/1/challenges/4
+
  -- Notes:
 
  The file to analyze has been copied to the repo and named chal4_input.txt. It has 326 lines of 

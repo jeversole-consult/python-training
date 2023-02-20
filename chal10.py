@@ -18,6 +18,8 @@ from the previous exercise to combine them.
 The file here is intelligible (somewhat) when CBC decrypted against "YELLOW SUBMARINE" with an IV 
 of all ASCII 0 (\x00\x00\x00 &c)
 
+Reference: https://cryptopals.com/sets/2/challenges/10
+
 Notes:
 
 1) Some of the instructions above are a bit confusing. To sort that out further research on CBC was

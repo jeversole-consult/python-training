@@ -20,6 +20,8 @@
  password file. Your .sig file. Get a feel for it. I promise, we aren't wasting your time with
  this.
 
+Reference: https://cryptopals.com/sets/1/challenges/5
+
  -- Notes:
 
  To tackle this problem we need to iterate over a python byte string and keep track of where we are

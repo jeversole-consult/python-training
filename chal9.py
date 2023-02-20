@@ -16,6 +16,8 @@ end of the block. For instance,
 
 "YELLOW SUBMARINE\x04\x04\x04\x04"
 
+Reference: https://cryptopals.com/sets/2/challenges/9
+
 Notes:
 
 1) This is another byte oriented task. All the code we have written before that deals with strings
