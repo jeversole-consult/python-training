@@ -6,9 +6,9 @@ In the file chal8_input.txt are a bunch of hex-encoded ciphertexts.
 
 One of them has been encrypted with ECB.
 
-Reference: https://cryptopals.com/sets/1/challenges/8
-
 Detect it.
+
+Reference: https://cryptopals.com/sets/1/challenges/8
 
  -- Notes:
 
@@ -40,7 +40,7 @@ print('\n --- Challege 8 ---\n')
 # 3) Print result and see what we got.
 #
 
-max_dupes, dupes, detected_ciphertext, linenum, detected_line = 0,0,None,0,0
+max_dupes, dupes, detected_ciphertext, linenum, detected_line = 0,0,None,1,0
 
 for ciphertext in list(open("chal8_input.txt", "r")):
     ciphertext = ciphertext.rstrip()
@@ -60,4 +60,4 @@ for ciphertext in list(open("chal8_input.txt", "r")):
 
 # Not sure about a space being in front of the deteced ciphertext for some reason. Something to 
 # checkout
-print('Line #: ',detected_line, " - Content: -",detected_ciphertext)
+print('Line #: ',detected_line, " - Dupes - ", max_dupes, " - Content: -",detected_ciphertext)
