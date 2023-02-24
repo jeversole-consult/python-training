@@ -1,18 +1,23 @@
 """
 --------------------------------------------------------------------------------------------------
- Crypto Funcs - Python functions specific to the Cryptopals Set 1 Challenge
+ Crypto Funcs - Python functions specific to the Cryptopals Sets Challenge
  
  After working the first couple of challenges it seemed that recurring patterns were 
  showing up in the problem space. Fertile ground for a small set of focused routines. This file
  is a parking lot for a collection of routines used to solve recurring problems.
 
  -- Notes:
- This is a rough cut at building a very small function library to reuse by scripts. There is a 
- bit of an attempt to use a standard for documenting the functions. It's better than nothing.
+ This is a rough cut at building a very small function library to reuse for scripts. Some research was done
+ on standards for documenting the function headers. It's better than nothing.
  --------------------------------------------------------------------------------------------------
 """
 from collections import Counter
 from collections import defaultdict
+import secrets
+import random
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad
 
 """
 English lowercase frequency table
@@ -28,9 +33,123 @@ occurance_english = {
 }
 
 """
-Load the values of the english character occurance into a list
+Load the values of the english character occurance into a list. If you use this module you get an english character
+distribution loaded for you to use in pattern recognition statistics. For now it is hard coded.
 """
 dist_english = list(occurance_english.values())
+
+def PKCS7_pad(text:bytes):
+    """
+    This method takes a byte string and based on the length of the string returns a PKCS#7 compliant pad byte string to
+    calling routine.
+    
+    Parameters
+    ----------
+    text : bytes
+       Input byte string used to determine the length and values of the pad
+    
+    Returns
+    ----------
+    bytes: A PKCS#7 compliant byte string of length and value depending on the block boundaries of the input string
+    """
+
+    # Looked around and found the python method divmod that gets the padnum. Probably not the most efficient way to do it,
+    # but gets the job done.
+    padstr = b''
+    q,r = divmod(len(text),16)
+    padnum = 16 - r # The number of bytes to pad is the block size minus the remainder
+    for i in range(0,(padnum)):
+        padstr += padnum.to_bytes(1,'little')
+    return(padstr)
+
+# -- End PKCS7_pad --
+
+
+def random_byte_str(size:int) -> bytes:
+    """
+    This method takes an integer as an input argument and returns a byte string of length of the input argument where all of 
+    the bytes in the string have been independently selected at random. This is a solved problem in python with the module
+    secrets.
+    
+    Parameters
+    ----------
+    size : int
+       This is the length of the byte string to create and return.
+    
+    Returns
+    ----------
+    bytes: The result byte string of length size
+    """
+
+    return(secrets.token_bytes(size))
+
+# Use Python builtins for this
+
+# -- End random_byte_string --
+
+def aes_random_mode_encrypt(text:bytes) -> bytes:
+    """
+    This method takes a byte string and AES encrypts the string using the following rules:
+    1) A random string function is used to generate the key of fixed length 16 bytes
+    2) For CBC the IV is generated using a random byte string generator
+    3) The mode to use between ECB or CBC is selected using a digital coin toss 
+        
+    Parameters
+    ----------
+    text : bytes
+       The byte string to encrypt.
+    
+    Returns
+    ----------
+    bytes: The resulting encrypted byte string.
+    """
+
+    # As called for by Challenge 11 add random bytes to the front and back of byte string passed in using a 
+    # range between 5 & 10
+    tmp = random_byte_str(random.randint(5,10)) + text + random_byte_str(random.randint(5,10))
+
+    # PKCS7 pad the byte string to be encrypted
+    tmp = tmp + PKCS7_pad(tmp)
+    
+    if (random.randint(1,2) == 1):
+        key = secrets.token_bytes(16)
+        cipher = AES.new(key, AES.MODE_ECB)
+        return(cipher.encrypt(tmp))
+    else:
+        key = secrets.token_bytes(16)
+        IV = secrets.token_bytes(16)
+        cipher = AES.new(key, AES.MODE_CBC, IV)
+        return(cipher.encrypt(tmp))
+
+# -- End aes_random_mode_encrypt --
+
+def aes_mode_oracle(text):
+    """
+    This method currently takes a byte string of text and looks to see if it can detect which AES mode is being used to 
+    encrypted text.
+
+    Parameters
+    ----------
+    text : bytes
+       Byte string of text to perform analyze   
+
+    Returns
+    ----------
+    int: 0 - Not a block cipher
+         1 - ECB block cipher detected
+         2 - CBC block cipher detected
+    """
+
+    q,r = divmod(len(text), 16)
+    if (r != 0):
+        return(0)
+    print("Dupes = ",dupe_blocks(text,16))
+    if (dupe_blocks(text,16) >= 1):
+        return(1) # more than 1 dupe block means it is likely ECB
+    else:
+        return(2) # else the block cipher is CBC
+
+# -- End aes_mode_oracle --
 
 def cbc(IV, key, text):
     """
@@ -49,6 +168,11 @@ def cbc(IV, key, text):
     Returns
     ----------
     bytes: The result text from performing the cbc algorithm
+
+    Notes:
+    ----------
+    This routine is currently a stub.
+
     """
 
 # -- End cbc --
@@ -172,7 +296,7 @@ def multi_byte_xor(text: bytes, key: bytes) -> bytes:
     function encrypts the text by performing XOR of all the bytes rotating through each byte of 
     the `key` sequentially.
 
-    
+
     """
     bytenum=len(key)
     rotate,b,z = 0,b'',None
