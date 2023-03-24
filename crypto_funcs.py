@@ -18,6 +18,7 @@ import random
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad
+import base64
 
 """
 English lowercase frequency table
@@ -37,6 +38,8 @@ Load the values of the english character occurance into a list. If you use this 
 distribution loaded for you to use in pattern recognition statistics. For now it is hard coded.
 """
 dist_english = list(occurance_english.values())
+
+ecb_global_key = secrets.token_bytes(16)
 
 def PKCS7_pad(text:bytes):
     """
@@ -122,6 +125,30 @@ def aes_random_mode_encrypt(text:bytes) -> bytes:
         return(cipher.encrypt(tmp))
 
 # -- End aes_random_mode_encrypt --
+
+def aes_ecb_oracle(text:bytes, key:bytes) -> bytes:
+    """
+    This method takes a byte string, a key, ecb encrypts the string with the key, and returns it.
+        
+    Parameters
+    ----------
+    text : bytes
+       The byte string to encrypt.
+    key : bytes
+       Key to use for encryption.
+    
+    Returns
+    ----------
+    bytes: The resulting encrypted byte string.
+    """
+
+    # PKCS7 pad the byte string to be encrypted
+    tmp = text + PKCS7_pad(text)
+    
+    cipher = AES.new(key, AES.MODE_ECB)
+    return(cipher.encrypt(tmp))
+    
+# -- End aes_ecb_oracle --
 
 def aes_mode_oracle(text):
     """
@@ -389,3 +416,4 @@ def sbx_decipher(text: bytes) :
     return original_text, encryption_key, min_fq
 
 # -- End sbx_decipher --
+
