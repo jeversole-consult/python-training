@@ -113,7 +113,7 @@ for n in range(2,40):
         min_AHD = k
         keylen = n
 #
-# Getting these numbers right is very tedious, but required to solve the problem
+# Getting these numbers right is tedious, but required to solve the problem
 # 
 # Step 2 - Use single byte substrings to find the key
 #
@@ -122,9 +122,6 @@ for n in range(2,40):
 #
 q, ekey, min_fq, mbkey = None,None,None,b''
 
-# Build out the multibyte XOR key by deciphering the set of substrings that have a common
-# single byte encryption. Knowing the key length enables us to do this.
-#
 for m in range(0, keylen):
     s = message_bytes[m:len(message_bytes):keylen]
     #
