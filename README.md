@@ -4,12 +4,13 @@ This Python Training site was created to document and share a family project und
 
 The next challenge is an approach to learning this new programming language Python. The pool of Python documentation on the internet combined with published texts is deep and wide. A traditional academic programming language course might follow a textbook of some type designed to give an overall view of the Python language using primarily abstract exercises. A lab execution environment is a requirement, but, well within reach of any home computing environment today. We can easily get a Python installation up on a Windows, Mac, Linux desktop, or virtual machine on a cloud installation like AWS. Armed with all the tools the question arose as to what problem  space do we want to use to explore this new language.
 
-The team chose to use the cryptography space as an entry level introduction into Python. The reality is the team also needs to learn a bit about cryptography fundamentals in general for this exercise. The problem domain chosen is documented on the [Cryptopals.com](https://cryptopals.com) website. The Cryptopals guys recommend getting your hands dirty with some code, therefore, the team is going to do just that with Python. In this way we look at several things in paralell which is more akin to the real world:
+The team chose to use the cryptography space as an entry level introduction into Python. The reality is the team also needs to learn a bit about cryptography fundamentals in general for this exercise. The problem domain chosen is documented on the [Cryptopals.com](https://cryptopals.com) website. The Cryptopals guys recommend getting your hands dirty with some code, therefore, the team is going to do just that with Python. In this way we look at several things in parallel which is more akin to the real world:
+
 * Pick a particular programming language
 * Learn what we need to know about the problem space
 * Learn how to learn a new language from scratch
-* Select a development toolset comprised of a VCs, editor and platform. In this case git, VS Code,
-  and a combo of Windows and linux VMs spun up on AWS. 
+* Select a development toolset comprised of a VCS, editor and platform. In this case git, Visual Studio Code,
+  and a combo of Windows and linux VMs spun up in the cloud. 
 
 The approach used here is informal and uses the following background and guidelines:
 
@@ -36,7 +37,7 @@ The approach used here is informal and uses the following background and guideli
 * Currently the repository is read-only to the public. 
 
 ## Problem Domain
-While it is fair to say that programming languages in general have an abstract structure, there is nothing like applying that abstract structure to a particular problem domain and seeing what happens. Afterall, the programming language is a tool to solve a problem. The field of cryptography is arguably an abstract discipline rooted in mathematics. We find many of the cryptographic procedures we follow, provided by the experts, requiring only a set of steps to carefully follow. Get them right and all will be fine. No need to understand what is under the hood.
+While it is fair to say that programming languages in general have an abstract structure, there is nothing like applying that abstract structure to a particular problem domain and seeing what happens. After all, the programming language is a tool to solve a problem. The field of cryptography is arguably an abstract discipline rooted in mathematics. We find many of the cryptographic procedures we follow, provided by the experts, requiring only a set of steps to carefully follow. Get them right and all will be fine. No need to understand what is under the hood.
 
 Writing code to solve a problem, invariably, requires that there be some understanding of what is under the hood. After completing Set1: Challenge 6, the team decided to begin sharing work with the public. The challenges were found to be carefully constructed, i.e crawl before you walk and so on, to build a foundation. The team used that introduction to build out an include file of common routines to reuse. There are a number of features of Python that we explore without getting into the depth of object oriented design and programming. As we did a deeper dive into the problem domain we found that it touches on binary arithmetic, rudimentary statistical analysis, the gory details of understanding low level data types in a high level language, and how to convert between various encoding schemes. Really good stuff and cudos for the Cryptopals guys for their great work!
 
@@ -46,6 +47,9 @@ Writing code to solve a problem, invariably, requires that there be some underst
 * Cygwin: Most everything needed can be loaded onto Cygwin on Windows. It is used to simulate a linux command line environment and works pretty good when you are using a Windows platform. Mac folks have an easier time with a command line terminal.
 * Linux VMs: Currently using AWS. Like to keep around a pure linux rig.
 * Github: The public repository where this readme file resides
+
+## Challenge Comments
+There are many comments embedded in the code that dive into the individual challenges.
 
 ## Links
 The following links were visited while working on the code. It is a mixed bag of python coding idioms and crypto math. There is a whole lot of "bit twiddlin'" goin on.
@@ -106,4 +110,3 @@ The following links were visited while working on the code. It is a mixed bag of
 ## Contact Info
 Please send any comments or questions to: eversolejesse@gmail.com 
 
-## License 
