@@ -55,15 +55,6 @@ Reference: https://cryptopals.com/sets/1/challenges/6
  single byte XOR strings and crack those like we did in Challenge 3. A lot of python mechanics to
  pull substrings and iterate across them, but the concept as mentioned in the problem statement
  is straight forward.
- 
- A little tricky, but not too bad. We can reuse code already written to accomplish the task and
- for those new to python pay attention to the "one-liners" where variables can be implicit, but
- methods are available based on the return type of a method call. The following example
- shows invocation of a method directly from the returned result of a method in a python import
- file. It also shows the unary operator += that is supported in python. 
-
-    plain_text += crypto_funcs.multi_byte_xor(block, mbkey).decode('ascii')
-
 --------------------------------------------------------------------------------------------------
 """
 
