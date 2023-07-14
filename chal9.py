@@ -40,7 +40,7 @@ print('\n --- Challege 9 ---\n')
 # of bytes needed to complete the block based on the block length. In this specific problem the 
 # block length # is 20 bytes. The input is 16 bytes and requires 4 bytes to make 20. PKCS#7 says 
 # we need 4 bytes to pad this block and use a binary number 4 as the byte value of each pad byte. 
-# If it # were 5 bytes we would use a binary 5 as the value for each padding byte.
+# If it were 5 bytes we would use a binary 5 as the value for each padding byte.
 # 
 # The code below is written to be relative to the block size which is hardcoded here, but expected
 # to be auto determined for any future production code.

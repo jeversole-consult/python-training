@@ -104,9 +104,6 @@ unknown_bytes = base64.b64decode(data.encode('latin-1'))
 known_string = b'A'
 # Pretend not to know this key
 unknown_key  = b'YELLOW SUBMARINE'
-found_str    = b''
-attack_block = b''
-# 
 # 
 start_len = len(crypto_funcs.aes_ecb_oracle(unknown_bytes, unknown_key))
 
@@ -157,4 +154,4 @@ for j in range((target_len)-1, -1, -1):
             print(found_bytes)
             break
 
-# 
+# End chal12

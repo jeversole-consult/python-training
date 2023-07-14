@@ -19,6 +19,8 @@ from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad
 import base64
+import json
+import re
 
 """
 English lowercase frequency table
@@ -67,6 +69,27 @@ def PKCS7_pad(text:bytes):
 
 # -- End PKCS7_pad --
 
+def PKCS7_unpad(text:str) -> str:
+    """
+    This method takes a byte string and based on the length of the string returns a PKCS#7 compliant pad byte string to
+    calling routine.
+    
+    Parameters
+    ----------
+    text : bytes
+       Input byte string used to determine the length and values of the pad to strip
+    
+    Returns
+    ----------
+    bytes: A byte string that has PKCS#7 padding removed
+    """
+
+    # Note that the variable text is a byte string which means we can use the last byte of the string as a number.
+    # Interesting expression below.
+
+    return(text[:-text[-1]])
+    
+# -- End PKCS7_unpad --
 
 def random_byte_str(size:int) -> bytes:
     """
@@ -149,6 +172,27 @@ def aes_ecb_oracle(text:bytes, key:bytes) -> bytes:
     return(cipher.encrypt(tmp))
     
 # -- End aes_ecb_oracle --
+
+def aes_ecb_decrypt(text:bytes, key:bytes) -> bytes:
+    """
+    This method takes an ECB encrypted byte string and key then the decrypted plaintext.
+        
+    Parameters
+    ----------
+    text : bytes
+       The byte string to encrypt.
+    key : bytes
+       Key to use for encryption.
+    
+    Returns
+    ----------
+    bytes: The resulting decrypted byte string.
+    """
+    
+    cipher = AES.new(key, AES.MODE_ECB)
+    return(cipher.decrypt(text))
+    
+# -- End aes_ecb_decrypt --
 
 def aes_mode_oracle(text):
     """
@@ -417,3 +461,67 @@ def sbx_decipher(text: bytes) :
 
 # -- End sbx_decipher --
 
+def parse_query_str(text: str) -> dict:
+    """
+    Parse query string
+
+    Parameters
+    ----------
+    text : str
+       Input test string to parse and return python dictionary
+    
+    Returns
+    -------
+    dictionary - the result of the parsed elements for the input string into pairs
+    
+    Notes:
+    ------
+    This accepts and input string expected to be the equivalent of http query string. The 
+    example given for Challenge 13 is delimited like an http query string
+    """
+    
+    # First split on the & to get a list of strings that can further split on "=" and build a dictionary
+    
+    pairs = dict(x.split("=") for x in text.split("&"))
+
+    # I could do it in one fell swoop, but I broke out the return statement 
+
+    return pairs
+    
+# -- End parse_query_str --
+
+
+def profile_for(text: dict) -> str:
+    """
+    Build profile input string from dictionary
+
+    Parameters
+    ----------
+    text : dict
+       Input dict data structure and return string
+    
+    Returns
+    -------
+    A query string encoded with fixed uid and role
+    
+    Notes:
+    ------
+    This routine simply takes an "ordered" python dictionary, builds a query string, returns it. 
+    
+    There are some rules for the input email address itself in that it cannot have metacharacters in the email string. 
+    All "&" and "=" are to be stripped from the input string if they happen to be in the input string.
+    """
+    qs = ''
+
+    for key, value in text.items():
+
+        # Strip the special chars from the value if they exist 
+        re.sub(r'\&', r'', value) 
+        re.sub(r'\=', r'', value) 
+        qs = qs + key + '=' + value + '&'
+    
+    # Dump the trailing & on return
+
+    return qs[:-1]
+    
+# -- End profile_for --
