@@ -79,11 +79,12 @@ import base64
 import crypto_funcs
 from Crypto.Cipher import AES
 import re
+import time
 
 print('\n --- Challege 12 ---\n')
 
 #
-# 1) Initialize a variable with a known plaintext string. 
+# 1) Initialize a variable to use as a known plaintext string. 
 # 
 # 2) Decode the base64 encoded unknown string into a variable.
 # 
@@ -126,7 +127,7 @@ offset = len(known_string)
 
 # Declare some vars 
 prefix_block = b''
-found_bytes   = b''
+found_bytes  = b''
 
 target_len = num_blocks * block_size
 
@@ -147,11 +148,11 @@ for j in range((target_len)-1, -1, -1):
     # This is the single byte brute force search for the matching encrypted byte
         new_cipher_bytes = crypto_funcs.aes_ecb_oracle(prefix_block + found_bytes + k.to_bytes(1,'little') + unknown_bytes, unknown_key)
 
-        if (bytes(cipher_bytes)[:(target_len-1)] == bytes(new_cipher_bytes)[:(target_len-1)]):
+        if (bytes(cipher_bytes)[:(target_len)] == bytes(new_cipher_bytes)[:(target_len)]):
             # We found a byte match
             found_bytes += k.to_bytes(1,'little')
-            # Print out what we've found so far
-            print(found_bytes)
+            print('\n\n',found_bytes)
+            time.sleep(1)
             break
 
 # End chal12
