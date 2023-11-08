@@ -43,7 +43,7 @@ dist_english = list(occurance_english.values())
 
 ecb_global_key = secrets.token_bytes(16)
 
-def PKCS7_pad(text:bytes):
+def PKCS7_pad(text:bytes, blocksize:int) -> bytes:
     """
     This method takes a byte string and based on the length of the string returns a PKCS#7 compliant pad byte string to
     calling routine.
@@ -61,10 +61,11 @@ def PKCS7_pad(text:bytes):
     # Looked around and found the python method divmod that gets the padnum. Probably not the most efficient way to do it,
     # but gets the job done.
     padstr = b''
-    q,r = divmod(len(text),16)
-    padnum = 16 - r # The number of bytes to pad is the block size minus the remainder
+    q,r = divmod(len(text),blocksize)
+    padnum = blocksize - r # The number of bytes to pad is the block size minus the remainder
     for i in range(0,(padnum)):
         padstr += padnum.to_bytes(1,'little')
+    
     return(padstr)
 
 # -- End PKCS7_pad --
@@ -90,6 +91,59 @@ def PKCS7_unpad(text:str) -> str:
     return(text[:-text[-1]])
     
 # -- End PKCS7_unpad --
+
+def PKCS7_padchk(text:bytes, blocksize:int) -> bool:
+    """
+    This method takes a byte string expected to have valid PKCS7 padding and checks to see if it has valid
+    padding.
+    
+    Parameters
+    ----------
+    text : bytes
+       Input byte string expected to be PKCS7 padded
+    
+    blocksize : int
+        
+    Returns
+    ----------
+    bool: True - valid padding, False - exception or invalid padding
+
+    Notes
+    -----
+
+    - It's not clear if the block size is needed in this routine, but I put it in there anyway just in case
+    latter.
+
+    - I put and exception handler in the code, but I'm still not sure that is needed. But, it is a means to
+    test the use of exeption handling after reading extensively on python exception handling.
+
+    """
+
+    # Per the 
+    # 
+
+    try:
+       expected_pad = b''
+       given_pad = b''
+       x = 0
+       x = len(text) - (len(text) - text[-1])
+
+       given_pad = text[-x:]
+       for i in range(0,text[-1]):
+           expected_pad += text[-1].to_bytes(1,'little')
+       assert expected_pad == given_pad    
+       print('Good Padding!')
+       return(True)
+    except Exception as e:
+ #      print(e)
+       print('Bad Padding!')   
+       return(False)
+    else:
+        return(False)
+    finally:
+        pass
+    
+# -- End PKCS7_padchk --
 
 def random_byte_str(size:int) -> bytes:
     """
@@ -135,7 +189,7 @@ def aes_random_mode_encrypt(text:bytes) -> bytes:
     tmp = random_byte_str(random.randint(5,10)) + text + random_byte_str(random.randint(5,10))
 
     # PKCS7 pad the byte string to be encrypted
-    tmp = tmp + PKCS7_pad(tmp)
+    tmp = tmp + PKCS7_pad(tmp, 16)
     
     if (random.randint(1,2) == 1):
         key = secrets.token_bytes(16)
@@ -166,7 +220,7 @@ def aes_ecb_oracle(text:bytes, key:bytes) -> bytes:
     """
 
     # PKCS7 pad the byte string to be encrypted
-    tmp = text + PKCS7_pad(text)
+    tmp = text + PKCS7_pad(text, 16)
     
     cipher = AES.new(key, AES.MODE_ECB)
     return(cipher.encrypt(tmp))
