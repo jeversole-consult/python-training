@@ -160,10 +160,9 @@ def random_byte_str(size:int) -> bytes:
     ----------
     bytes: The result byte string of length size
     """
+    # Use Python builtins for this
 
     return(secrets.token_bytes(size))
-
-# Use Python builtins for this
 
 # -- End random_byte_string --
 
@@ -579,3 +578,96 @@ def profile_for(text: dict) -> str:
     return qs[:-1]
     
 # -- End profile_for --
+
+def c16f1_preappend(header: bytes, body: bytes, footer: bytes) -> bytes:
+    """
+    Parameters
+    ----------
+    header : bytes
+       Header block to prepend
+    body : bytes
+       midsection of the resultant string
+    footer : bytes
+       
+    Returns
+    -------
+    A string that is the result of concatenating header + body + footer
+    
+    Notes:
+    ------
+    This is a simple routine called for by the challenge 16 specification. The choice here is to accept 3 strings of 
+    text and simply concatenate them with an additional requirement. The "body" string requires that special characters
+    be escaped. The method used here for escaping chars like ';' and '=' is to replace them with the equivalent 
+    ASCII encoding reference documented across internet sources. The substitution used here is from Windows 1252.
+
+    Further note. The continuous process of encoding and decoding I find a tedious, but, necessary detail to which close 
+    attention pays off. The basic mechanics of expanding one character to 3 characters, e.g. the symbol = becomes %3D, is 
+    a play in this game.
+    
+    """
+    
+    # Escape the special characters in the body string. This is a brute force approach to get the job done.
+    body_str = str(body, 'latin-1')
+    body_str = re.sub(r';', r'%3B', body_str) 
+    body_str = re.sub(r'=', r'%3D', body_str) 
+    body = bytes(body_str, 'latin-1')
+
+    return(header+body+footer) 
+
+# -- End c16f1_preappend --
+
+def aes_cbc_mode_encrypt(text:bytes, key:bytes, IV:bytes) -> bytes:
+    """
+    This method takes a byte string and a key an returns an AES CBC mode encrypted byte string using the following rules:
+    1) This routine does not generate a random key since it takes the key as a parameter
+    2) For CBC the IV is generated using a random byte string generator ???
+        
+    Parameters
+    ----------
+    text : bytes
+       The byte string to encrypt.
+    
+    key : bytes
+       The key to use for encryption.
+
+    IV : bytes
+       The initialization vector to use for CCB encryption.
+
+    Returns
+    ----------
+    bytes: The resulting encrypted byte string.
+
+    """
+
+    cipher = AES.new(key, AES.MODE_CBC, IV)
+    return(cipher.encrypt(text))
+
+# -- End aes_cbc_mode_encrypt --
+
+def aes_cbc_mode_decrypt(text:bytes, key:bytes, IV:bytes) -> bytes:
+    """
+    This method takes an encrypted byte string and a key an returns an AES CBC mode encrypted byte string using the following rules:
+    1) This routine does not generate a random key since it takes the key as a parameter
+    2) For CBC the IV is generated using a random byte string generator ???
+        
+    Parameters
+    ----------
+    text : bytes
+       The byte string to encrypt.
+    
+    key : bytes
+       The key to use for encryption.
+
+    IV : bytes
+       The initialization vector to use for CCB encryption.
+
+    Returns
+    ----------
+    bytes: The resulting dencrypted byte string.
+
+    """
+
+    cipher = AES.new(key, AES.MODE_CBC, IV)
+    return(cipher.decrypt(text))
+
+# -- End aes_cbc_mode_decrypt --
