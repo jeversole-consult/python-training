@@ -94,7 +94,7 @@ def PKCS7_unpad(text:str) -> str:
 
 def PKCS7_padchk(text:bytes, blocksize:int) -> bool:
     """
-    This method takes a byte string expected to have valid PKCS7 padding and checks to see if it has valid
+    This method takes a plain text byte string expected to have valid PKCS7 padding and checks to see if it has valid
     padding.
     
     Parameters
@@ -111,15 +111,17 @@ def PKCS7_padchk(text:bytes, blocksize:int) -> bool:
     Notes
     -----
 
-    - It's not clear if the block size is needed in this routine, but I put it in there anyway just in case
-    latter.
+    - It's not clear if the block size is needed in this routine, but I put it in there anyway just in case.
 
-    - I put and exception handler in the code, but I'm still not sure that is needed. But, it is a means to
+    - I put an exception handler in the code, but I'm still not sure that is needed. It is a means to
     test the use of exeption handling after reading extensively on python exception handling.
+
+    - Python has an interesting and nice capability to capture the tail of a byte string, but the syntax is not
+    intuitive to me. I treat it as an idiom when I see a negative reference in an array.
 
     """
 
-    # Per the 
+    # Per the challenge
     # 
 
     try:
@@ -132,11 +134,10 @@ def PKCS7_padchk(text:bytes, blocksize:int) -> bool:
        for i in range(0,text[-1]):
            expected_pad += text[-1].to_bytes(1,'little')
        assert expected_pad == given_pad    
-       print('Good Padding!')
+       #print('Good Padding!')
        return(True)
     except Exception as e:
- #      print(e)
-       print('Bad Padding!')   
+       #print('Bad Padding!')   
        return(False)
     else:
         return(False)
@@ -671,3 +672,85 @@ def aes_cbc_mode_decrypt(text:bytes, key:bytes, IV:bytes) -> bytes:
     return(cipher.decrypt(text))
 
 # -- End aes_cbc_mode_decrypt --
+
+def c17_func1(key:bytes, IV:bytes, block_len:int) -> bytes:
+    """
+    This method uses the description for function 1 from the Challenge 17 specification to do all the things asked for
+    in that specification. See Challenge 17 on the cryptopals.com site or the header in chal17.py. Note that we are
+    hardcoding some data inside this method for the purposes of answering the challenge. The core of the logic we can
+    generalize later after we work out the logic.
+
+    Parameters
+    ----------
+    key : bytes
+       The key to use for encryption.
+
+    IV : bytes
+       The initialization vector to use for CCB encryption.
+
+    block_len : int
+       The initialization vector to use for CCB encryption.
+
+    Returns
+    ----------
+    bytes: The resulting dencrypted byte string.
+
+    """
+
+    test_file = open("chal17_input.txt", "r")
+    data = test_file.read()
+    plain_txt_list = data.split('\n')
+    plain_txt = bytes(data[random.randint(0,9)], 'latin-1')
+    plain_txt = bytes(plain_txt_list[random.randint(0,9)], 'latin-1')
+    
+    # I keep this hard coded text around in comments should I need them latter
+    # plain_txt = b'MDAwMDAxV2l0aCB0aGUgYmFzcyBraWNrZWQgaW4gYW5kIHRoZSBWZWdhJ3MgYXJlIHB1bXBpbic='
+    
+    # Pad the plain text
+    plain_txt = plain_txt + PKCS7_pad(plain_txt, block_len)
+    print('Plain text padded', plain_txt)
+
+
+    return(aes_cbc_mode_encrypt(plain_txt, key, IV))
+   
+
+# -- End c17_func1 --
+
+def c17_func2(cipher_text:bytes, key:bytes, IV:bytes, block_size:int) -> bool:
+    """
+    This method uses the description for function 2 from the Challenge 17 specification to do all the things asked for
+    in that specification. See Challenge 17 on the cryptopals.com site or the header in chal17.py. 
+
+    Parameters
+    ----------
+    cipher_text : bytes        
+        Encrypted text string
+
+   key : bytes
+       The key to use for encryption.
+
+   IV : bytes
+       The initialization vector to use for CCB encryption.
+
+    cipher_text : bytes
+       Encrypted text string
+
+    block_size : int
+       The block length of cipher
+
+    Returns
+    ----------
+    bool: True  - The decrypted string has valid padding
+          False - The decrypted string has invalid padding
+
+    """
+   # decrypt the cipher text and do a pad check
+    plain_txt = aes_cbc_mode_decrypt(cipher_text, key, IV)
+    #print('Plain text decrypt - ',plain_txt)
+    
+    if (PKCS7_padchk(plain_txt, block_size)):
+        return(True)
+    else:
+        return(False)
+    
+# -- End c17_func2 --
